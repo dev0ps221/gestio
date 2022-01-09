@@ -1,0 +1,17 @@
+#menus{
+    display: flex;
+    flex-direction: column;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    overflow-x: scroll;
+    overflow:hidden;
+}   
+.article{
+    width: 8vw;
+    height: 100%;
+    margin: 1vw;
+    padding: 5%;
+}

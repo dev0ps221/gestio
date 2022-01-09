@@ -1,0 +1,35 @@
+<form method="post" class='ajouter_article'>
+    <fieldset>
+        <legend>
+            ajouter un article
+        </legend>
+        <div class="field">
+            <input type="text" name="nom" placeholder="nom">
+        </div>
+        <div class="field">
+            <input type="number" name="prix" placeholder="prix">
+        </div>
+        <div class="field">
+            <button class='doajouter_article' onClick="ajouterArticle(event)">
+                ajouter
+            </button>
+        </div>
+    </fieldset>
+</form>
+<script>
+    function ajouterArticle(e){
+        e.preventDefault()
+        var nom = e.target.parentNode.parentNode.querySelector('input[name="nom"]')
+        var prix = e.target.parentNode.parentNode.querySelector('input[name="prix"]')
+        if(nom,prix){
+          nom = nom.value
+          prix = prix.value
+          const ajouterArticleData={
+            nom,prix
+          }
+          post(
+            '/ajouter_article',ajouterArticleData
+          )
+        }
+    }
+</script>

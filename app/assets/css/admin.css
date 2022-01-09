@@ -1,0 +1,18 @@
+body{
+    background:#e3dbdb;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
+#admin{
+    margin: 5%;
+}
+#articles,#commandes,#menus{
+    margin-bottom: 2.5em;
+    background:#C8b7b7;
+    box-shadow: 0 0 0.25em gray ;
+    padding:0.5%;
+}
+.bouton_plus{
+    background-color: cadetblue;
+}

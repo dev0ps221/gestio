@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/articles.css">
+<section id='articles'>
+    <h1>
+        Articles
+    </h1>
+        x{ajouterarticle}x
+    <section id="liste_articles">
+    </section>
+</section>
+<script>
+  window.addEventListener(
+    'load',
+    ()=>{
+      post(
+        '/articles'
+      )
+      window.liste_articles = document.querySelector('#articles #liste_articles')
+      window.articles = []
+      function buildArticleBox(article){
+
+        const {nom,prix}  = article
+        let articlebox    = document.createElement('div')
+        let nombox        = document.createElement('div')
+        let prixbox       = document.createElement('div')
+
+        nombox.innerText  = nom
+        prixbox.innerText  = prix
+
+        articlebox.classList.add('article')
+        nombox.classList.add('nom')
+        prixbox.classList.add('prix')
+
+        articlebox.appendChild(nombox)
+        articlebox.appendChild(prixbox)
+
+        return articlebox
+      }
+      function  updateArticlesView(){
+        liste_articles.innerText = ""
+        articles.forEach(
+          article=>{
+            liste_articles.appendChild(buildArticleBox(article))
+          }
+        )
+      }
+      get('/articlesRes',data=>{
+        data.forEach(
+          article=>{
+            articles.push(article)
+          }
+        )
+        updateArticlesView()
+      })
+    }
+  )
+</script>
