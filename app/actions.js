@@ -7,7 +7,7 @@ let articles = require(path.join(objectspath,'article'))
 let clients = require(path.join(objectspath,'client'))
 let deebee = require(path.join(objectspath,'deebee'))
 let dbman = new deebee({
-  host:'',user:'root',password:'',database:'resto'
+  host:process.env.MSQH,user:process.env.MSQU,password:process.env.MSQP,database:process.env.MSQD
 })
 let sockets = []
 

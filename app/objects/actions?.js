@@ -10,6 +10,16 @@ const Articles  = [
       )
     }
   ],[
+    'removeArticle',function(data,cb){
+      let {nom,id} = data
+      let req = this.__delFrom(
+        'articles',[[id?'id':'nom'],[id?id:`'${nom}'`]]
+      )
+      this.db.query(
+        req,cb
+      )
+    }
+  ],[
     'getArticle',function(data,cb){
       let {nom,id} = data
       console.log('get article req conds',[[id?'id':'nom'],[id?id:`'${nom}'`]])
