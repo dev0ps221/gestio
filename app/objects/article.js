@@ -43,6 +43,7 @@ class Articles{
   }
   setArticles(cb){
     this.db.getArticles((err,articles)=>{
+      articles = articles?articles:[]
       this.articles = articles ? [] : this.articles
       articles.forEach(
         article=>{
