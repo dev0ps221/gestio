@@ -4,6 +4,7 @@ const app     = new express()
 const http    = require('http')
 const server  = http.createServer(app)
 const io      = sio()
+console.log(process.env.PORT)
 const port    = process.env.PORT || 80
 const path    = require('path')
 const router  = require(path.join(__dirname,'app','routes'))
