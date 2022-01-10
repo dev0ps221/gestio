@@ -56,6 +56,7 @@ function setSocketListeners(socket){
       manager.users.logUser(
         username,password,(err,res)=>{
           console.log('login results')
+          console.log(err,res)
           if(err){
             socket.emit(
               '/loginRes','Identifiant ou|et Mot de passe incorrect|s',res
