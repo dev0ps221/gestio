@@ -58,7 +58,7 @@ function setSocketListeners(socket){
           console.log('login results')
           if(err){
             socket.emit(
-              '/loginRes','Identifiant ou|et Mot de passe incorrect|s',r
+              '/loginRes','Identifiant ou|et Mot de passe incorrect|s',res
             )
             return
           }
@@ -68,7 +68,7 @@ function setSocketListeners(socket){
             )
           }else{
             socket.emit(
-              '/loginRes','Identifiant ou|et Mot de passe incorrect|s',r
+              '/loginRes','Identifiant ou|et Mot de passe incorrect|s',res
             )
           }
         }
