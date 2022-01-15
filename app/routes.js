@@ -39,8 +39,8 @@ function addRoutes(app){
   staticData(app)
   app.get(
     '/',(req,res)=>{
-      res.redirect(
-        '/menu'
+      res.sendFile(
+        path.join(viewspath,'index.html')
       )
     }
   )
