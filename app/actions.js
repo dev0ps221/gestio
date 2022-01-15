@@ -6,9 +6,11 @@ let users = require(path.join(objectspath,'user'))
 let articles = require(path.join(objectspath,'article'))
 let clients = require(path.join(objectspath,'client'))
 let deebee = require(path.join(objectspath,'deebee'))
+
 let dbman = new deebee({
   host:process.env.MSQH,user:process.env.MSQU,password:process.env.MSQP,database:process.env.MSQD
 })
+
 let sockets = []
 
 
@@ -26,6 +28,14 @@ function setSocketListeners(socket){
     '/articles',()=>{
       socket.emit(
         '/articlesRes',manager.articles.getArticles()
+      )
+    }
+  )
+
+  socket.on(
+    '/menus',()=>{
+      socket.emit(
+        '/menusRes',manager.menus.getMenus()
       )
     }
   )
@@ -50,13 +60,92 @@ function setSocketListeners(socket){
   )
 
   socket.on(
+    '/ajouter_menu',(menu)=>{
+      manager.menus.insertMenu(
+        menu,(e,r)=>{
+          if(e){
+            console.log(e)
+            e = 'erreur, rééssayez plus tard!!!'
+          }
+          socket.emit(
+            '/ajouter_menuRes',e,r
+          )
+          socket.emit(
+            '/menusRes',manager.menus.getMenus()
+          )
+        }
+      )
+    }
+  )
+
+  socket.on(
+    '/nouvel_article_menu',({article,menu_id,article_id})=>{
+      
+
+      const id_article = article_id
+      const id_menu = parseInt(menu_id)
+      let menu = (manager.menus.getById(id_menu))
+      let e = null
+      let r = null
+      if(menu){
+        
+        if(article_id=='aucun'){
+          const {nom_article,prix_article} = article
+          if(nom_article&&prix_article){
+
+            manager.articles.insertArticle(
+              article,(e,r)=>{
+                if(e){
+                  console.log(e)
+                  e = 'erreur, rééssayez plus tard!!!'
+                }else{
+                  manager.menus.insertMenuArticle({id_article,id_menu},(e,r)=>{
+                    if(e){
+                      console.log(e)
+                      e = 'erreur, rééssayez plus tard!!!'
+                    }
+                  })
+                }
+              }
+            )
+          }else{
+            e = 'menu et article non specifies'
+          }
+        }else{
+          
+          manager.menus.insertMenuArticle(
+            {id_menu,id_article},(e,r)=>{
+              if(e){
+                console.log(e)
+                e = 'erreur, rééssayez plus tard!!!'
+              }
+            }
+          )
+          menu.updateData((data)=>{
+            socket.emit(
+              '/menusRes',manager.menus.getMenus()
+            )
+          })
+
+        }
+      }else{
+        e = 'menu non specifie'
+      }
+      if((typeof r) != "undefined"){
+        let r = null
+      }
+      socket.emit(
+        '/nouvel_article_menuRes',e,(typeof r)!='undefined'?r:null
+      )
+    }
+
+
+  )
+
+  socket.on(
     '/login',({username,password})=>{
-      console.log('login requested')
-      console.log('username is',username)
       manager.users.logUser(
         username,password,(err,res)=>{
-          console.log('login results')
-          console.log(err,res)
           if(err){
             socket.emit(
               '/loginRes','Identifiant ou|et Mot de passe incorrect|s',res

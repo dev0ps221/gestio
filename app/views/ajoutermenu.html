@@ -7,9 +7,24 @@
             <input type="text" name="nom" placeholder="nom">
         </div>
         <div class="field">
-            <button class='doajouter_menu'>
+            <button class='doajouter_menu' onClick="ajouterMenu(event)">
                 ajouter
             </button>
         </div>
     </fieldset>
 </form>
+<script>
+    function ajouterMenu(e){
+        e.preventDefault()
+        var nom = e.target.parentNode.parentNode.querySelector('input[name="nom"]')
+        if(nom){
+          nom = nom.value
+          const ajouterMenuData={
+            nom
+          }
+          post(
+            '/ajouter_menu',ajouterMenuData
+          )
+        }
+    }
+</script>

@@ -38,6 +38,20 @@ function staticData(app){
 function addRoutes(app){
   staticData(app)
   app.get(
+    '/',(req,res)=>{
+      res.redirect(
+        '/menu'
+      )
+    }
+  )
+  app.get(
+    '/menu',(req,res)=>{
+      res.sendFile(
+        path.join(viewspath,'menu.html')
+      )
+    }
+  )
+  app.get(
     '/menus',(req,res)=>{
       res.sendFile(
         path.join(viewspath,'menus.html')

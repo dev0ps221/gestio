@@ -4,8 +4,8 @@
     Menus
   </h1>
   x{ajoutermenu}x
-  <section class="menu">
-    <div class="article">
+  <section id="liste_menus">
+    <div class="menu">
       <div class="nom">
         nom
       </div>
@@ -13,7 +13,7 @@
         prix
       </div>
     </div>
-    <div class="article">
+    <div class="menu">
       <div class="nom">
         nom
       </div>
@@ -21,7 +21,7 @@
         prix
       </div>
     </div>
-    <div class="article">
+    <div class="menu">
       <div class="nom">
         nom
       </div>
@@ -31,3 +31,136 @@
     </div>
   </section>
 </section>
+
+<script>
+  window.addEventListener(
+    'load',
+    ()=>{
+      post(
+        '/menus'
+      )
+      window.liste_menus = document.querySelector('#menus #liste_menus')
+      window.menus = []
+      function addArticleFields(formelem){
+        let nomarticle = document.createElement('input')
+        nomarticle.classList.add('field')
+        nomarticle.placeholder = "nom de l'article"
+        let prixarticle = document.createElement('input')
+        nomarticle.type='number'
+        prixarticle.classList.add('field')
+        prixarticle.placeholder = "prix de l'article"
+        let ajouter_from = document.createElement('select')
+        let defaultoption = document.createElement('option')
+        defaultoption.value = 'aucun'
+        defaultoption.innerText = "Selection dans la liste d'article"
+        ajouter_from.appendChild(defaultoption);
+        let timeout = null
+        async function articlesLoop(){
+          if(articles && articles.length) {
+              console.log('got them')
+              console.log(articles)
+              articles.forEach(
+                article=>{
+                  let articleoption = document.createElement('option')
+                  articleoption.value = article.id
+                  articleoption.innerText = article.nom
+                  ajouter_from.appendChild(articleoption)
+                }
+            ) 
+            clearInterval(timeout)
+          }else articlesLoop()
+          
+        }
+        timeout = setInterval(articlesLoop,1500)
+        let ajouter = document.createElement('input')
+        ajouter.type = 'button'
+        ajouter.value = 'ajouter'
+        ajouter_from.addEventListener(
+          'change',e=>{
+            if(e.target.value!='aucun'){
+              nomarticle.disabled = 1
+              prixarticle.disabled = 1
+            }else{
+              nomarticle.disabled = 0
+              prixarticle.disabled = 0
+            }
+          }
+        )
+        ajouter.addEventListener(
+          'click',e=>{
+            let article_id =  ajouter_from.value
+            let menu_id     =  formelem.parentNode.parentNode.parentNode.id.replace('menu','')
+            let nom_article = nomarticle.value
+            let prix_article = prixarticle.value
+            post(
+              '/nouvel_article_menu',{menu_id,article_id,article:{nom_article,prix_article}}
+            )
+          }
+        )
+        formelem.appendChild(nomarticle)
+        formelem.appendChild(prixarticle)
+        formelem.appendChild(ajouter_from)
+        formelem.appendChild(ajouter)
+        return formelem
+      }
+      function buildMenuBox(menu){
+
+        const {nom,id}  = menu
+        let menubox    = document.createElement('div')
+        let nombox        = document.createElement('div')
+
+        nombox.innerText  = nom
+
+        menubox.id = `menu${id}`
+        menubox.classList.add('menu')
+        nombox.classList.add('nom')
+
+        let hookboxes = document.createElement('section')
+        hookboxes.classList.add('hookboxes')
+        let addhook = document.createElement('span')
+        addhook.classList.add('hookbox')
+        addhook.classList.add('addarticlehook')
+        addhook.innerText = "+\tnouvel article"
+        hookboxes.appendChild(addhook)
+        
+        let actionboxes = document.createElement('section')
+        actionboxes.classList.add('actionboxes')
+        let addelembox = document.createElement('div')
+        addelembox.classList.add('ajouter_article')
+        addelembox.classList.add('actionbox')
+        let addelemform = document.createElement('form')
+        addelemform.classList.add('nouvel_article_menu')
+        addelembox.appendChild(addelemform)
+        actionboxes.appendChild(addelembox)
+        addelemform = addArticleFields(addelemform)
+        actionboxes.classList.add('hidden')
+        menubox.appendChild(nombox)
+        menubox.appendChild(hookboxes)
+        menubox.appendChild(actionboxes)
+        addhook.addEventListener(
+          'click',e=>{
+            actionboxes.classList[actionboxes.classList.contains('hidden')?"remove":"add"]('hidden')
+          }
+        )
+        return menubox
+      }
+      function  updateMenusView(){
+        liste_menus.innerText = ""
+        menus.forEach(
+          menu=>{
+            liste_menus.appendChild(buildMenuBox(menu))
+          }
+        )
+      }
+      get('/menusRes',data=>{
+        menus = []
+        data.forEach(
+          menu=>{
+            menus.push(menu)
+          }
+        )
+        updateMenusView()
+      })
+    }
+  )
+</script>

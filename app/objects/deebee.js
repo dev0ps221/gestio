@@ -98,7 +98,6 @@ class DeeBee{
   }
 
   __selectFrom(table_,fields_=[],conds=[[],[]]){
-    console.log(conds)
     return "SELECT "+this.__valsStr(fields_)+" FROM "+ table_ +((conds.length) ? this.__condsStr(conds[0],conds[1]) : "");
   }
 
@@ -187,7 +186,6 @@ class DeeBee{
 
   ___login(user,pass,cb){
     const req = this.___loginreq(this._getUsersTable(),user,pass)
-    console.log(req)
     this.db.query(
       req
       ,cb
@@ -229,11 +227,9 @@ class DeeBee{
 
   ___member(id,cb){
     let req = this._req('select',this._getUsersTable(),['*'],null,[['id'],[id]]);
-    console.log(req)
     this.db.query(req,(err,res)=>{
         if(err)cb(err,null)
         else{
-          console.log('hey iowww ',res)
           if(res.length){
             res[0].password = 'helloo'
           }

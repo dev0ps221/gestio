@@ -22,11 +22,9 @@ const Articles  = [
   ],[
     'getArticle',function(data,cb){
       let {nom,id} = data
-      console.log('get article req conds',[[id?'id':'nom'],[id?id:`'${nom}'`]])
       let req = this.__selectFrom(
         'articles',['*'],[[id?'id':'nom'],[id?id:`'${nom}'`]]
       )
-      console.log('get article req',req)
       this.db.query(
         req,cb
       )
@@ -54,13 +52,49 @@ const Menus     = [
       )
     }
   ],[
-    'getArticleMenu',function(data,cb){
-      let {id_menu} = data
+    'getMenu',function(data,cb){
+      const {nom,id} = data
       let req = this.__selectFrom(
-        'article_menu',[],[['id_menu'],[id_menu]]
+        'menu',['*'],[],[[nom?'nom':'id'],[nom?`'${nom}'`:id]]
       )
       this.db.query(
         req,cb
+      )
+    }
+  ],[
+    'getArticlesMenu',function(data,cb){
+      let {id_menu} = data
+      let req = this.__selectFrom(
+        'article_menu',['*'],[['id_menu'],[id_menu]]
+      )
+
+      this.db.query(
+        req,cb
+      )
+    }
+  ],[
+    'getArticleMenu',function(data,cb){
+      let {id_menu,id_article} = data
+      let req = this.__selectFrom(
+        'article_menu',['*'],[['id_menu','id_article'],[id_menu,id_article]]
+      )
+      this.db.query(
+        req,(e,r)=>{
+          if(e){
+            cb(e,r)
+          }else{
+            if(r&&r.length){
+              req = this.__selectFrom(
+                'articles',['*'],[['id'],[r[0].id]]
+              ) 
+              this.db.query(
+                req,cb
+              )
+            }else{
+              cb(e,r)
+            }
+          }
+        }
       )
     }
   ],[
@@ -77,7 +111,7 @@ const Menus     = [
     'addMenu',function(data,cb){
       let {nom} = data
       let req = this.__insertINTO(
-        'menus',['nom'],[`'${nom}'`],[[],[]]
+        'menu',['nom'],[`'${nom}'`],[[],[]]
       )
       this.db.query(
         req,cb
