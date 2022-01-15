@@ -39,22 +39,25 @@ function addRoutes(app){
   staticData(app)
   app.get(
     '/',(req,res)=>{
-      res.sendFile(
-        path.join(viewspath,'index.html')
+      const view = replacePart(getTemplate(path.join(viewspath,'index.html')),'splash','splash')
+      res.send(
+        view
       )
     }
   )
   app.get(
     '/menu',(req,res)=>{
-      res.sendFile(
-        path.join(viewspath,'menu.html')
+      const view = replacePart(getTemplate(path.join(viewspath,'menu.html')),'splash','splash')
+      res.send(
+        view
       )
     }
   )
   app.get(
     '/menus',(req,res)=>{
-      res.sendFile(
-        path.join(viewspath,'menus.html')
+      const view = replacePart(getTemplate(path.join(viewspath,'menus.html')),'splash','splash')
+      res.send(
+        view
       )
     }
   )
@@ -81,6 +84,7 @@ function addRoutes(app){
       adminview = replacePart(adminview,'ajouterarticle','ajouterarticle')
       adminview = replacePart(adminview,'ajoutermenu','ajoutermenu')
       adminview = replacePart(adminview,'ajoutercommande','ajoutercommande')
+      adminview = replacePart(adminview,'splash','splash')
       res.send(
         adminview
       )
