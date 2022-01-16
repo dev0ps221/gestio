@@ -1,4 +1,5 @@
 const articles_commande = document.querySelector('#articles_commande .liste_articles')
+const total_commande = document.querySelector('#resume_commande .total_commande')
 class ArticleCommande{
   
   
@@ -28,6 +29,11 @@ class ArticleCommande{
     return this
   }
   
+  getTotal(){
+    this.prixtotal = this.setTotal()
+    return this.prixtotal
+  }
+
   hasId(id){
     return this.id === id
   }
@@ -41,6 +47,15 @@ class ArticleCommande{
   }
 }
 class Commande{
+  avoirTotal(){
+    let total = 0
+    this.articles.forEach(
+      article=>{
+        total+=article.getTotal()
+      }
+    )
+    return total
+  }
   ajouterArticle(data){
     this.articles.push(new ArticleCommande(data))
     updateCommandeView()
@@ -67,12 +82,15 @@ updateCommandeView()
 
   
   
-
+function updateTotalView(){
+  total_commande.innerText = `${commande_actuelle.avoirTotal()} FCFA`
+}
 function updateCommandeView(){
   articles_commande.innerText = ""
   commande_actuelle.articles.forEach(
     article=>articles_commande.appendChild(buildCommandeArticleView(article))
   )
+  updateTotalView()
 }
 function buildCommandeArticleView(article){
  
@@ -95,12 +113,12 @@ function buildCommandeArticleView(article){
   const prixbox = document.createElement('span')
   prixbox.classList.add('prix_article_commande')
   infos.appendChild(prixbox)
-  prixbox.innerText = article.prix
+  prixbox.innerText = ` ${article.prix} FCFA `
  
   const quantitebox = document.createElement('span')
   quantitebox.classList.add('quantite_article_commande')
   infos.appendChild(quantitebox)
-  quantitebox.innerText = article.quantite
+  quantitebox.innerText = `x${article.quantite}`
  
   const increasebox = document.createElement('span')
   increasebox.classList.add('increase_article_commande')

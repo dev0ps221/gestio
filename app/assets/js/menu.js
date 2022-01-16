@@ -30,8 +30,9 @@ function buildMenuArticleBox(article){
     'click',e=>{
       const occurence = commande_actuelle.voirArticle(article.id)
       !occurence?commande_actuelle.ajouterArticle(article):occurence.increase(()=>{
-        console.log(commande_actuelle)
+        updateCommandeView()
       })
+      updateCommandeView()
     }
   )
   

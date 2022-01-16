@@ -39,7 +39,6 @@ class Users{
     this.db._____registerAction(
       'getUsers',(cb=null)=>{
         let req = this.db.__selectFrom(this.db._getUsersTable(),['*'])
-        console.log(req)
         this.db.query(
           this.req,cb
         )

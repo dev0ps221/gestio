@@ -15,8 +15,15 @@ class CommandeArticle {
   }
 }
 class Commande{
-  getArticle(nom){
-
+  getArticle(nom,id){
+    let searched  = [id?'id':'nom',id?id:nom]
+    let found     = null
+    this.articles.forEach(
+      article=>{
+        if(article[searched[0]]===searched[1]) found = article
+      }
+    )
+    return found
   }
   addArticle(nom,prix,quantite){
     this.articles.push(
