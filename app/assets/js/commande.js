@@ -113,10 +113,10 @@ function buildCommandeArticleView(article){
   decreasebox.innerText = '-'
 
 
-  const decreasebox = document.createElement('span')
-  decreasebox.classList.add('decrease_article_commande')
-  actions.appendChild(decreasebox)
-  decreasebox.innerText = 'x'
+  const deletebox = document.createElement('span')
+  deletebox.classList.add('delete_article_commande')
+  actions.appendChild(deletebox)
+  deletebox.innerText = 'x'
   
  
   articlebox.appendChild(infos)
