@@ -75,16 +75,52 @@ function updateCommandeView(){
   )
 }
 function buildCommandeArticleView(article){
-  const articlebox = document.createElement('div')
+ 
+  const infos       = document.createElement('div')
+  infos.classList.add('infos')
+
+  const actions       = document.createElement('div')
+  actions.classList.add('actions')
+
+
+  const articlebox  = document.createElement('div')
   articlebox.classList.add('article_commande')
   articlebox.id = `article_commande_${article.id}`
+ 
   const nombox = document.createElement('span')
   nombox.classList.add('nom_article_commande')
-  articlebox.appendChild(nombox)
+  infos.appendChild(nombox)
   nombox.innerText = article.nom
+ 
   const prixbox = document.createElement('span')
   prixbox.classList.add('prix_article_commande')
-  articlebox.appendChild(prixbox)
+  infos.appendChild(prixbox)
   prixbox.innerText = article.prix
+ 
+  const quantitebox = document.createElement('span')
+  quantitebox.classList.add('quantite_article_commande')
+  infos.appendChild(quantitebox)
+  quantitebox.innerText = article.quantite
+ 
+  const increasebox = document.createElement('span')
+  increasebox.classList.add('increase_article_commande')
+  actions.appendChild(increasebox)
+  increasebox.innerText = '+'
+  
+  const decreasebox = document.createElement('span')
+  decreasebox.classList.add('decrease_article_commande')
+  actions.appendChild(decreasebox)
+  decreasebox.innerText = '-'
+
+
+  const decreasebox = document.createElement('span')
+  decreasebox.classList.add('decrease_article_commande')
+  actions.appendChild(decreasebox)
+  decreasebox.innerText = 'x'
+  
+ 
+  articlebox.appendChild(infos)
+  articlebox.appendChild(actions)
+
   return articlebox
 }
