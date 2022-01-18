@@ -6,7 +6,7 @@ let users = require(path.join(objectspath,'user'))
 let articles = require(path.join(objectspath,'article'))
 let clients = require(path.join(objectspath,'client'))
 let deebee = require(path.join(objectspath,'deebee'))
-
+let {v4} = require('uuid')
 let dbman = new deebee({
   host:process.env.MSQH,user:process.env.MSQU,password:process.env.MSQP,database:process.env.MSQD
 })
@@ -23,6 +23,10 @@ const manager = {
 }
 
 function setSocketListeners(socket){
+
+  socket.uuid = v4() 
+
+  console.log(socket.uuid)
 
   socket.on(
     '/articles',()=>{
