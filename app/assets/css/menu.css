@@ -105,14 +105,45 @@ body{
     text-align: left;
     max-height: 98%;
     overflow: hidden;
-    overflow-y: scroll;
 }
 #articles_commande{
     width: 80%;
     background: rgba(255,42,42,0.4);
 }
+#articles_commande h2,#resume_commande h2{
+    height: 10%;
+    display: flex;
+}
+#articles_commande .article_commande{
+    margin: 2%;
+    padding: 2%;
+}
+#articles_commande .liste_articles,#resume_commande .total_commande{
+    padding: 5%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 #resume_commande{
     background: rgba(255,42,42,0.8);
+}
+#resume_commande button{
+    width: 100%;
+    padding: 5%;
+    border: none;
+    border-radius: 0.4em;
+    cursor: pointer;
+    box-shadow: 0 0 0 0.05em #556655;
+}
+#resume_commande button:active{
+    width: 100%;
+    padding: 5%;
+    border: none;
+    border-radius: 0.4em;
+    cursor: pointer;
+    box-shadow: 0 0 0 0.08em #222222;
 }
 @media screen and (max-width:997px) {
     body{

@@ -1,5 +1,7 @@
 const articles_commande = document.querySelector('#articles_commande .liste_articles')
 const total_commande = document.querySelector('#resume_commande .total_commande')
+const valider_commande = document.querySelector('#resume_commande .valider_commande button')
+console.log(valider_commande)
 class ArticleCommande{
   
   
@@ -28,10 +30,17 @@ class ArticleCommande{
     if(!this.quantite) this.destroy()
     return this
   }
-  
+
   getTotal(){
     this.prixtotal = this.setTotal()
     return this.prixtotal
+  }
+
+  get(){
+    return {
+      quantite:this.quantite,
+      id:this.id
+    }
   }
 
   hasId(id){
@@ -44,9 +53,16 @@ class ArticleCommande{
     this.nom      = nom
     this.prix     = prix
     this.prixtotal= this.setTotal()
+    updateCommandeView() 
   }
 }
 class Commande{
+  
+  validable(){
+    valider_commande.disabled = this.avoirTotal() > 0 ? 0 : parseInt(this.avoirTotal() > 0).toString()
+    return this.avoirTotal() > 0
+  }
+
   avoirTotal(){
     let total = 0
     this.articles.forEach(
@@ -54,12 +70,15 @@ class Commande{
         total+=article.getTotal()
       }
     )
-    return total
+    this.total = total
+    return this.total
   }
+
   ajouterArticle(data){
     this.articles.push(new ArticleCommande(data))
-    updateCommandeView()
+    updateCommandeView() 
   }
+
   voirArticle(id){
     let found = null
     this.articles.forEach(
@@ -71,6 +90,18 @@ class Commande{
     )
     return found
   }
+
+  get(){
+    return {
+      articles:this.articles.map(article=>article.get())
+    }
+  }
+
+  validerCommande(){
+    console.log(this.get())
+    alert('okay validons la commande')
+  }
+
   constructor(){
     this.articles = []
     this.total    = 0
@@ -84,6 +115,7 @@ updateCommandeView()
   
 function updateTotalView(){
   total_commande.innerText = `${commande_actuelle.avoirTotal()} FCFA`
+  commande_actuelle.validable()
 }
 function updateCommandeView(){
   articles_commande.innerText = ""
@@ -142,3 +174,8 @@ function buildCommandeArticleView(article){
 
   return articlebox
 }
+valider_commande.addEventListener(
+  'click',()=>{
+    commande_actuelle.validerCommande()
+  }
+)
