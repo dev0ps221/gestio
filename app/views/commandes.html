@@ -14,4 +14,92 @@
       bbca
     </div>
   </section>
+  <section id='details_commande'>
+
+  </section>
 </section>
+<script>
+
+  window.addEventListener(
+    'load',
+    ()=>{
+      post(
+        '/commandes'
+      )
+
+      function updateCommandesView(){
+        
+        liste_commandes.innerHTML = ''
+        commandes.forEach(
+          commande=>{
+            const commandelem = document.createElement('div')
+            commandelem.classList.add('commande')
+            const uuid = document.createElement('span')
+            uuid.classList.add('uuid')
+            uuid.innerText = commande.uuid
+            liste_commandes.appendChild(commandelem)
+            const commandeinfos = document.createElement('div')
+            const articleselem = document.createElement('div')
+            commande.articles.forEach(
+              article=>{
+                const articleelem = document.createElement('div')
+                articleelem.classList.add('article-commande')
+                const name = document.createElement('span')
+                name.classList.add('article-commande-name')
+                name.innerText = article.name
+                
+                const quantity = document.createElement('span')
+                quantity.classList.add('article-commande-quantity')
+                quantity.innerText = `${article.quantity}`
+                
+                const price = document.createElement('span')
+                price.classList.add('article-commande-price')
+                price.innerText = article.price
+                commandelem.appendChild(articleelem)
+              }
+
+            )
+            commandelem.addEventListener(
+              'click',e=>{
+                setSelectedCommand(commande)
+              }
+            )
+            commandelem.appendChild(uuid)
+            liste_commandes.appendChild(commandelem)
+          }
+        )
+      }
+
+      function setSelectedCommand(command){
+        commande_selected = command
+        updateDetailsCommande()
+      }
+
+      function updateDetailsCommande(){
+
+        if(commande_selected){
+          alert("let's show command details")
+          console.log(commande_selected)
+        }
+
+
+      }
+
+
+      window.commandes = []
+      window.commande_selected = null
+
+      get('/commandesRes',data=>{
+        commandes = []
+        data.forEach(
+          commande=>{
+            commandes.push(commande)
+          }
+        )
+        updateCommandesView()
+      })
+    }
+
+
+  )
+</script>

@@ -93,13 +93,16 @@ class Commande{
 
   get(){
     return {
+      uuid:this.uuid,
       articles:this.articles.map(article=>article.get())
     }
   }
 
   validerCommande(){
-    console.log(this.get())
     alert('okay validons la commande')
+    post(
+      '/ajouter_commande',this.get()
+    )
   }
 
   constructor(){

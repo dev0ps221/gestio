@@ -86,7 +86,8 @@ class Menu {
     this.db = db
     this.setData(data)
     this.elements = []
-    this.updateData()
+    this.updateData(data=>{
+    })
   }
 }
 

@@ -24,9 +24,16 @@ const manager = {
 
 function setSocketListeners(socket){
 
-  socket.uuid = v4() 
+  socket.on(
+    'uuid',
+    uuid=>{
+      socket.uuid = uuid
+    }
+  )
 
-  console.log(socket.uuid)
+  socket.emit(
+    'uuidRes',{uuid:v4()}
+  )
 
   socket.on(
     '/articles',()=>{
@@ -41,6 +48,35 @@ function setSocketListeners(socket){
       socket.emit(
         '/menusRes',manager.menus.getMenus()
       )
+    }
+  )
+
+  socket.on(
+    '/commandes',()=>{
+      socket.emit(
+        '/commandesRes',manager.commandes.getCommandes()
+      )
+    }
+  )
+
+  socket.on(
+    '/ajouter_commande',(commande)=>{
+      console.log('ajouter commande')
+      console.log(commande)
+      if(commande.uuid===socket.uuid){
+        manager.commandes.insertCommande(
+          commande,(e,r)=>{
+            console.clear()
+            console.log('\r\r\r')
+            console.log('------add commande')
+            console.log(e,r)
+            console.log('add commande------')
+            console.log('\r\r\r')
+          }
+        )
+      }else{
+        console.log('no uuid for command')
+      }
     }
   )
 

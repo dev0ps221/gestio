@@ -131,12 +131,43 @@ const Commandes = [
           req,cb
         )
       }
+    ],[
+      'getArticlesCommande',function(id,cb){
+        let req = this.__selectFrom(
+          'article_commande',['*'],[],[['id_commande'],[id]]
+        )
+        this.db.query(
+          req,(e,r)=>{
+            if(e)cb(e,r)
+            else{
+              if(r.length){
+                let articles = []
+                r.forEach(
+                  (article,idx)=>{
+                    this.getArticle({id:article.id_article},(e,articledata)=>{
+                      article.nom = articledata[0].nom
+                      article.id = articledata[0].id
+                      article.prix=articledata[0].prix
+                      articles.push(article)
+                      if(idx+1==r.length){
+                        cb(e,articles)
+                      }
+                    })
+                  }
+                )
+              }else{
+                cb(e,r)
+              }
+            }
+          }
+        )
+      }
     ],
     [
       'addArticleCommande',function(data,cb){
-        let {id_article,id_commande} = data
+        let {id_article,id_commande,quantite} = data
         let req = this.__insertINTO(
-          'article_commande',['id_article','id_commande'],[id_article,id_commande],[[],[]]
+          'article_commande',['id_article','id_commande','quantite'],[id_article,id_commande,quantite],[[],[]]
         )
         this.db.query(
           req,cb
@@ -145,9 +176,10 @@ const Commandes = [
     ],
     [
       'addCommande',function(data,cb){
-        let {user,articles} = data
+        console.log('addCommande data is > >=<> >',data)
+        let {uuid,articles} = data
         let req = this.__insertINTO(
-          'commande',[],[],[[],[]]
+          'commande',['uuid'],[`'${uuid}'`],[[],[]]
         )
         this.db.query(
           req,(e,r)=>{
@@ -158,9 +190,10 @@ const Commandes = [
                 let id_commande = r.insertId
                 if(id_commande){
                   articles.forEach(
-                    (id_article,idx)=>{
-                      this.db.addArticleCommande(
-                        {id_article,id_commande},(er,re)=>{
+                    ({id,quantite},idx)=>{
+                      const id_article = id
+                      this.addArticleCommande(
+                        {id_article,id_commande,quantite},(er,re)=>{
                           if(er)console.log(er)
                           else{
                             if(re){

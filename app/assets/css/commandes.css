@@ -4,11 +4,22 @@
 }
 #liste_commandes{
     display: flex;
+    overflow:hidden ;
     flex-direction: row;
+    overflow-x: scroll;
 }
 .commande{
-    width: 8vw;
+    max-width: 25vw;
     height: 100%;
-    margin: 1vw;
+}
+.commande .uuid{
     padding: 5%;
+    flex-wrap: wrap;
+    display: flex;
+    overflow: hidden;
+    flex-direction: row;
+    word-wrap: break-word;
+    width: 90%;
+    border-radius: 0.5em;
+    background: rgba(0, 0, 0, 0.4);
 }
