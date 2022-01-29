@@ -108,7 +108,6 @@ get('/menusRes',data=>{
         menus.push(menu)
       }
     )
-    console.log(menus)
     updateMenusView()
   })
 post(

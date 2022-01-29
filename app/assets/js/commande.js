@@ -1,7 +1,6 @@
 const articles_commande = document.querySelector('#articles_commande .liste_articles')
 const total_commande = document.querySelector('#resume_commande .total_commande')
 const valider_commande = document.querySelector('#resume_commande .valider_commande button')
-console.log(valider_commande)
 class ArticleCommande{
   
   

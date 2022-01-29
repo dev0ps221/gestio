@@ -2,12 +2,14 @@
   window.addEventListener(
     'load',
     ()=>{
+    
+      let commande_date_interval = null
       post(
         '/commandes'
       )
 
       function updateCommandesView(){
-        
+
         liste_commandes.innerHTML = ''
         commandes.forEach(
           commande=>{
@@ -57,21 +59,37 @@
       function updateDetailsCommande(){
 
         if(commande_selected){
+
+            clearInterval(commande_date_interval)
             details_commande.innerHTML = ""
             const uuid =document.createElement('div')
             uuid.classList.add('commande-uuid')
-            uuid.innerHTML = commande_selected.uuid
+            uuid.innerHTML = `commande [[${commande_selected.uuid}]]`
             
             const date = document.createElement('div')
             date.classList.add('commande-date')
             date.classList.add('commande-info')
+            
             
             const datelabel = document.createElement('div')
             datelabel.classList.add('infolabel')
             datelabel.innerText = ''
             const datedata = document.createElement('div')
             datedata.classList.add('infodata')
-            datedata.innerText = commande_selected.date
+            function updateTimer(){
+                let secondssince = ((new Date().getTime() - new Date(commande_selected.date).getTime())/1000)
+                let mnssince = parseInt(secondssince/60)
+                let hourssince = parseInt(secondssince/60/60)
+                let dayssince = parseInt(secondssince/60/60/24)
+                secondssince = parseInt(secondssince)
+                datedata.innerText = `${dayssince?dayssince+'days ':''}${hourssince?dayssince ? parseInt(hourssince-dayssince*24)+'hrs ' : hourssince +'hrs ':''}${mnssince?hourssince ? parseInt(mnssince-hourssince*60)+"mns " : mnssince+'mns ':' '}${secondssince? mnssince ? parseInt(secondssince-mnssince*60)+'s' :  secondssince:''}`
+            }
+            updateTimer()
+            commande_date_interval = setInterval(
+                ()=>{
+                    updateTimer()
+                },1000
+            )
             
             const articles = document.createElement('div')
             articles.classList.add('commande-articles')
@@ -96,7 +114,6 @@
             details_commande.appendChild(uuid)
             details_commande.appendChild(date)
             details_commande.appendChild(articles)
-            console.log(commande_selected)
         }
 
 
