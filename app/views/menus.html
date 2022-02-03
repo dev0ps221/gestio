@@ -15,6 +15,9 @@
       post(
         '/menus'
       )
+      post(
+        '/articles'
+      )
       window.liste_menus = document.querySelector('#menus #liste_menus')
       window.menus = []
       function addArticleFields(formelem){
@@ -93,9 +96,17 @@
         articleslabel.innerText = 'articles'
         articlesbox.appendChild(articleslabel)
 
-        const articleslist = document.createElement('li')
+        const articleslist = document.createElement('ul')
         articleslist.classList.add('list')
         articlesbox.appendChild(articleslist)
+
+        menu.articles.forEach(
+          article=>{
+            let art =document.createElement('span')
+            art.innerText = article.nom
+            articleslist.appendChild(art) 
+          }
+        )
 
         menubox.appendChild(articlesbox)
         const selfbox = document.createElement('div')
@@ -122,6 +133,30 @@
         nouvel_article.appendChild(selectnouvel_article)
         nouvel_article.appendChild(ajouternouvelarticle)
 
+        let defaultopt = document.createElement('option')
+        defaultopt.value = 'default'
+        defaultopt.innerText = 'default'
+
+        selectnouvel_article.appendChild(defaultopt)
+
+        let waitInterval = null
+        waitInterval = setInterval(
+          ()=>{
+            if(window.articles){
+              window.articles.forEach(
+                article=>{
+                  let opt = document.createElement('option')
+                  opt.value = article.id
+                  opt.innerText = article.nom
+                  selectnouvel_article.appendChild(opt)
+                }
+              )
+              clearInterval(waitInterval)
+            }
+          }
+          ,2500
+        )
+
         selfactions.appendChild(nouvel_article)
         ajouternouvelarticle.addEventListener(
           'click',e=>{
@@ -135,8 +170,9 @@
                 }
               )
               if(found){
+                console.log(found)
                 post(
-                  '/nouvel_article_menu',({article,menu_id:menu.id,article_id:article.id})
+                  '/nouvel_article_menu',({article:found,menu_id:menu.id,article_id:found.id})
                 )
               }
             }
@@ -202,6 +238,14 @@
           }
         )
         updateMenusView()
+      })
+      get('/articlesRes',data=>{
+        articles = []
+        data.forEach(
+          article=>{
+            articles.push(article)
+          }
+        )
       })
     }
   )
