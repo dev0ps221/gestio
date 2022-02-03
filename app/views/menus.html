@@ -112,7 +112,36 @@
         
         const selfactions = document.createElement('div')
         selfactions.classList.add('selfactions')
-        
+
+        let ajouternouvelarticle = document.createElement('button')
+        ajouternouvelarticle.innerText = 'ajouter'
+        let selectnouvel_article = document.createElement('select')
+        let nouvel_article = document.createElement('fieldset')
+        let nouvel_articlelegend = document.createElement('legend')
+        nouvel_articlelegend.innerText = 'ajouter un article au menu'
+        nouvel_article.appendChild(selectnouvel_article)
+        nouvel_article.appendChild(ajouternouvelarticle)
+
+        selfactions.appendChild(nouvel_article)
+        ajouternouvelarticle.addEventListener(
+          'click',e=>{
+            if(selectnouvel_article.value!='default'){
+              let found = null
+              articles.forEach(
+                article=>{
+                  if(article.id==parseInt(selectnouvel_article.value)){
+                    found = article 
+                  }
+                }
+              )
+              if(found){
+                post(
+                  '/nouvel_article_menu',({article,menu_id:menu.id,article_id:article.id})
+                )
+              }
+            }
+          }
+        )
         selfbox.appendChild(selfinfos)
         selfbox.appendChild(selfactions)
 
