@@ -4,13 +4,19 @@
 }
 .menu{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     max-width: 100%;
     overflow-x: scroll;
     overflow:hidden;
     border-radius: 0.6em;
     margin: 1%;
 }   
+.menu .articlesmenu{
+    width:60%;
+}
+.menu .self{
+    width: 40%;
+}
 .menu .nom{
     padding: 1%;
     background:rgba(0,0,0,0.4);
