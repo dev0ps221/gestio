@@ -17,9 +17,9 @@ class AdminFeed extends React.Component{
 
 
     render(){
-        const children = this.props.children ? (typeof this.props.children != 'object') ? this.props.children : [this.props.children] : ["RIEN À AFFICHER"]
+        const children = this.props.children ? this.props.children : ["RIEN À AFFICHER"]
         return <ul id='adminfeed' className="feed">
-            {children.map((b,k)=>this.renderFeedBox(b,k))}
+            {(typeof children.map) == 'function' ? children.map((b,k)=>this.renderFeedBox(b,k)) : this.renderFeedBox(children,0)}
         </ul>
     }
 

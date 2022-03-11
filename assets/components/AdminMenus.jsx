@@ -12,6 +12,7 @@ class AdminMenus extends React.Component{
             )}
         </ul>
     }
+    
     renderMenu(menu,key){
         return <li key={key} className="menu">
             {menu}

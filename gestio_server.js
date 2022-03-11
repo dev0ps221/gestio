@@ -123,6 +123,154 @@ const shop = new TeeShop(
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    function getCategories(socket){
+
+                        shop.getCategories(
+                            categories=>{
+                                const action = (categories)=>{
+                                    if(categories.length){
+                                            
+                                        let data = []
+                                        categories.forEach(
+                                            (cat,idx)=>{
+                                                cat.whenGotArticles(
+                                                    ()=>{
+                                                        function action2(socket){
+                                                            if(idx+1==categories.length){
+                                                                socket.post(
+                                                                    'categoriesRes'
+                                                                    ,data
+                                                                )
+                                                            }
+                                                        }
+                                                        cat._data.articles = cat._data.articles.map(
+                                                            (article,i)=>{
+                                                                return article._data
+                                                            }
+                                                        )
+                                                        data.push(cat._data)
+                                                        action2(socket)
+                                                    }
+                                                )
+                                            }
+                                        )
+
+                                    }else{
+                                        console.log('bafi')
+                                        shop._new_categorie(
+                                            'Tous','all.jpg',(e,r)=>{
+                                                console.log(e,r)
+                                                console.log('nungi baax fii')
+                                                shop.getCategories(
+                                                    cat=>cat.getCategories(action)
+                                                )
+                                        
+                                            }
+                                        )
+                                    }
+                                }
+                                categories.getCategories(
+                                    action
+                                )
+                            }
+                        )
+                    }
+                    function getCommandes(socket){
+                        shop.getCommandes(
+                            commandes=>{
+                                const action = (commandes)=>{
+                                    if(commandes.length){
+                                        let data = []
+                                        commandes.forEach(
+                                            (commande,idx)=>{
+                                                commande.setData(
+                                                    ()=>{
+                                                        commande.articles(
+                                                            articles=>{
+                                                                const cdata = commande._data
+                                                                cdata.articles = articles.map(article=>{return article._data})
+                                                                data.push(cdata)
+                                                                if(idx+1==commandes.length){                                                
+                                                                    socket.post(
+                                                                        'commandesRes',data
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
+                                                    }
+                                                )
+
+
+                                            }
+                                        )
+
+                                    }else{
+                                        socket.post(
+                                            'commandesRes',[]
+                                        )
+                                    }
+                                }
+                                commandes.getCommandes(
+                                    action
+                                )
+                            }
+                        )
+                    }
+                    shop.sockets.registerSocketListener(
+                        ['categories',(data,socket)=>{
+                            shop.setData(
+                                ()=>{
+                                    getCategories(socket)
+                                }
+                            )
+                        }]
+                    )
+                    shop.sockets.registerSocketListener(
+                        ['commandes',(data,socket)=>{
+                            shop.setData(
+                                ()=>{
+                                    console.log('commandes')
+                                    getCommandes(socket)
+                                }
+                            )
+                        }]
+                    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
         )
         shop.server.listen(
