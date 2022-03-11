@@ -7,7 +7,7 @@ class AdminMenus extends React.Component{
 
     renderMenus(){
         return <ul className="admin-menulist">
-            {(this.state.menus ? this.state.menus : ["Vous ne proposez aucun menu pour l'instant"]).map(
+            {(this.state.menus ? this.state.menus : []).map(
                 (m,k)=>this.renderMenu(m,k)
             )}
         </ul>

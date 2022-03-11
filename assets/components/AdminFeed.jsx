@@ -9,9 +9,7 @@ class AdminFeed extends React.Component{
 
     renderFeedBox(box,key){
         let props = {key,className:'feed-box'}
-        if(box.key == 'adminmenus'){
-            props.menus = this.state.menus ? this.state.menus : []
-        }
+        
         return React.createElement(
            'li',props,box 
         )
