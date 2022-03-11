@@ -38,19 +38,6 @@ const viewspath = path.join(__dirname,'views')
 const assetspath = path.join(__dirname,'assets')
 
 
-app.use(
-    '/comp',express.static(path.join(assetspath,'/components'))
-)
-app.use(
-    '/js',express.static(path.join(assetspath,'/js'))
-)
-app.use(
-    '/css',express.static(path.join(assetspath,'/css'))
-)
-app.use(
-    '/',express.static(path.join(assetspath))
-)
-
 
 
 function matchPath(pathname){
@@ -59,21 +46,75 @@ function matchPath(pathname){
 
 const shop = new TeeShop(
     TeeShop._d_conf(),creds,(shop)=>{
-
+        
         shop.server = server
         shop.sockets = new TeeSio(socketsconf)
+
+        
+
+        app.use(
+            '/comp',express.static(path.join(assetspath,'/components'))
+        )
+        app.use(
+            '/js',express.static(path.join(assetspath,'/js'))
+        )
+        app.use(
+            '/css',express.static(path.join(assetspath,'/css'))
+        )
+        app.use(
+            '/',express.static(path.join(assetspath))
+        )
+        app.get(
+            '/ears',(req,res)=>{
+                res.sendFile(require('path').join(process.cwd(),"node_modules","@tek-tech/ears","ears.js"))
+            }
+        )
+        app.get(
+            '/sio',(req,res)=>{
+                res.sendFile(require('path').join(process.cwd(),"node_modules","socket.io/client-dist","socket.io.min.js"))
+            }
+        )
+        app.get(
+            '/socket.io.min.js.map',(req,res)=>{
+                res.sendFile(require('path').join(process.cwd(),"node_modules","socket.io/client-dist","socket.io.min.js.map"))
+            }
+        )
+        app.get(
+            '/teeshop',(req,res)=>{
+                res.send(shop.cliClass().toString())
+            }
+        )
+        app.get(
+            '/siosocket',(req,res)=>{
+                res.header(
+                    'Content-type','text/javascript'
+                )
+                res.sendFile(shop.sockets.getSocketClassPath())
+            }
+        )
         shop.sockets.whenReady(
             ()=>{
                 shop.sockets.registerSocketListener(
                     [
-                        'hi',(data,socket)=>{
+                        'logad',({username,password},socket)=>{
                         
-                            console.log('got hi from someone')
-                            console.log(data)
-                            console.log('baxna nonou')
+                            shop.logAdm(
+                            
+                                username,password,(admin)=>{
+                                    
+                                    if(admin) socket.post(
+                                        'logadRes',admin.id
+                                    )
+                            
+                                }
+                            
+                            )
+                            // console.log('got hi from someone')
+                            // console.log(data)
+                            // console.log('baxna nonou')
 
 
-                            console.log('\n\n\n\n\n',socket)
+                            // console.log('\n\n\n\n\n',socket)
                         
                         }
                     ]
