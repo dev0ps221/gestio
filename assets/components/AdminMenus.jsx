@@ -6,16 +6,17 @@ class AdminMenus extends React.Component{
     }
 
     renderMenus(){
+        this.state.menus = adminPage.state.menus
         return <ul className="admin-menulist">
-            {(this.state.menus ? this.state.menus : []).map(
-                (m,k)=>this.renderMenu(m,k)
-            )}
+            {(()=>{return (this.state.menus ? this.state.menus : []).map(
+                (m,k)=>{return this.renderMenu(m,k)}
+            )})()}
         </ul>
     }
     
     renderMenu(menu,key){
         return <li key={key} className="menu">
-            {menu}
+            {menu.nom ? menu.nom.toString() : Object.keys(menu)[0]}
         </li>
     }
 
