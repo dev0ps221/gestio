@@ -33,10 +33,9 @@ const socketsconf = {
     usesTeeWeb:true,
     socket: TeeSioServSocket
 }
-
+const corepath = path.join(__dirname,'core')
 const viewspath = path.join(__dirname,'views')
 const assetspath = path.join(__dirname,'assets')
-
 
 
 
@@ -46,7 +45,9 @@ function matchPath(pathname){
 
 const shop = new TeeShop(
     TeeShop._d_conf(),creds,(shop)=>{
+
         
+        shop.actions = require(path.join(corepath,'actions'))
         shop.server = server
         shop.sockets = new TeeSio(socketsconf)
 
@@ -125,154 +126,155 @@ const shop = new TeeShop(
 
 
 
+                function getCategories(socket){
 
-
-
-
-
-
-
-
-
-
-
-
-                    function getCategories(socket){
-
-                        shop.getCategories(
-                            categories=>{
-                                const action = (categories)=>{
-                                    if(categories.length){
-                                            
-                                        let data = []
-                                        categories.forEach(
-                                            (cat,idx)=>{
-                                                cat.whenGotArticles(
-                                                    ()=>{
-                                                        function action2(socket){
-                                                            if(idx+1==categories.length){
-                                                                socket.post(
-                                                                    'categoriesRes'
-                                                                    ,data
-                                                                )
-                                                            }
-                                                        }
-                                                        cat._data.articles = cat._data.articles.map(
-                                                            (article,i)=>{
-                                                                return article._data
-                                                            }
-                                                        )
-                                                        data.push(cat._data)
-                                                        action2(socket)
-                                                    }
-                                                )
-                                            }
-                                        )
-
-                                    }else{
-                                        console.log('bafi')
-                                        shop._new_categorie(
-                                            'Tous','all.jpg',(e,r)=>{
-                                                console.log(e,r)
-                                                console.log('nungi baax fii')
-                                                shop.getCategories(
-                                                    cat=>cat.getCategories(action)
-                                                )
+                    shop.getCategories(
+                        categories=>{
+                            const action = (categories)=>{
+                                if(categories.length){
                                         
-                                            }
-                                        )
-                                    }
+                                    let data = []
+                                    categories.forEach(
+                                        (cat,idx)=>{
+                                            cat.whenGotArticles(
+                                                ()=>{
+                                                    function action2(socket){
+                                                        if(idx+1==categories.length){
+                                                            socket.post(
+                                                                'categoriesRes'
+                                                                ,data
+                                                            )
+                                                        }
+                                                    }
+                                                    cat._data.articles = cat._data.articles.map(
+                                                        (article,i)=>{
+                                                            return article._data
+                                                        }
+                                                    )
+                                                    data.push(cat._data)
+                                                    action2(socket)
+                                                }
+                                            )
+                                        }
+                                    )
+
+                                }else{
+                                    console.log('bafi')
+                                    shop._new_categorie(
+                                        'Tous','all.jpg',(e,r)=>{
+                                            console.log(e,r)
+                                            console.log('nungi baax fii')
+                                            shop.getCategories(
+                                                cat=>cat.getCategories(action)
+                                            )
+                                    
+                                        }
+                                    )
                                 }
-                                categories.getCategories(
-                                    action
-                                )
                             }
-                        )
-                    }
-                    function getCommandes(socket){
-                        shop.getCommandes(
-                            commandes=>{
-                                const action = (commandes)=>{
-                                    if(commandes.length){
-                                        let data = []
-                                        commandes.forEach(
-                                            (commande,idx)=>{
-                                                commande.setData(
-                                                    ()=>{
-                                                        commande.articles(
-                                                            articles=>{
-                                                                const cdata = commande._data
-                                                                cdata.articles = articles.map(article=>{return article._data})
-                                                                data.push(cdata)
-                                                                if(idx+1==commandes.length){                                                
-                                                                    socket.post(
-                                                                        'commandesRes',data
-                                                                    )
-                                                                }
-                                                            }
-                                                        )
+                            categories.getCategories(
+                                action
+                            )
+                        }
+                    )
+                }
+                function getCommandes(socket){
+                    shop.getCommandes(
+                        commandes=>{
+                            const action = (commandes)=>{
+                                if(commandes.length){
+                                    let data = []
+                                    commandes.forEach(
+                                        (commande,idx)=>{
+                                            commande.setData(
+                                                ()=>commande.articles(
+                                                    articles=>{
+                                                        const cdata = commande._data
+                                                        cdata.articles = articles.map(article=>{return article._data})
+                                                        data.push(cdata)
+                                                        if(idx+1==commandes.length){                                                
+                                                            socket.post(
+                                                                'commandesRes',data
+                                                            )
+                                                        }
                                                     }
                                                 )
+                                            
+                                            )
 
 
-                                            }
-                                        )
+                                        }
+                                    )
 
-                                    }else{
-                                        socket.post(
-                                            'commandesRes',[]
-                                        )
-                                    }
+                                }else{
+                                    socket.post(
+                                        'commandesRes',[]
+                                    )
                                 }
-                                commandes.getCommandes(
-                                    action
-                                )
+                            }
+                            commandes.getCommandes(
+                                action
+                            )
+                        }
+                    )
+                }
+                shop.sockets.registerSocketListener(
+                    ['categories',(data,socket)=>{
+                        shop.setData(
+                            ()=>{
+                                getCategories(socket)
                             }
                         )
-                    }
-                    shop.sockets.registerSocketListener(
-                        ['categories',(data,socket)=>{
-                            shop.setData(
-                                ()=>{
-                                    getCategories(socket)
-                                }
-                            )
-                        }]
-                    )
-                    shop.sockets.registerSocketListener(
-                        ['commandes',(data,socket)=>{
-                            shop.setData(
-                                ()=>{
-                                    console.log('commandes')
-                                    getCommandes(socket)
-                                }
-                            )
-                        }]
-                    )
-
-
-
-
-                    shop.sockets.registerSocketListener(
-                        [
-                            'add_article',({nom,prix,illu},socket)=>{
-                                
+                    }]
+                )
+                shop.sockets.registerSocketListener(
+                    ['commandes',(data,socket)=>{
+                        shop.setData(
+                            ()=>{
+                                console.log('commandes')
+                                getCommandes(socket)
                             }
-                        ]
-                    )
+                        )
+                    }]
+                )
 
 
+                shop.sockets.registerSocketListener(
+                    [
+                        'add_article',({catid,nom,prix,illu},socket)=>{
+                            const {uploadIllu} = (shop.actions)
+                            uploadIllu(
+                                illu,(illupath)=>{
+                                    console.log(illupath,' is illupath')
+                                    shop._new_article_categorie(
+                                        catid,nom,prix,illu,(res)=>{
+                                            console.log('resultats ajout article')
+                                            console.log(res)
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    ]
+                )
 
-
-
-
-
-
-
-
-
-
-
+                shop.sockets.registerSocketListener(
+                    [
+                        'add_categorie',({nom,illu},socket)=>{
+                            const {uploadIllu} = (shop.actions)
+                            uploadIllu(
+                                illu,(illupath)=>{
+                                    shop._new_categorie(
+                                        nom,illu,(res)=>{
+                                            console.log('resultats ajout article')
+                                            console.log(res)
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    ]
+                )
 
 
 
