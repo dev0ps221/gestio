@@ -27,6 +27,22 @@
 		<script crossorigin src="/js/react.development.js"></script>
 		<script crossorigin src="/js/react-dom.development.js"></script>
 		<script src="/js/babel.min.js"></script>
+		<script src="/ears"></script>
+		<script src="/sio"></script>
+		<script src="/siosocket"></script>
+		<script src="/teeshop"></script>
+		<script src="/js/cman.js"></script>
+		<script src="/js/tsplash.js"></script>
+		<script>
+			function iLI(){
+				return Cman.cooks().hasOwnProperty('cleeId')
+			}
+			const PageSocket = TeeSioCliSocket
+			const Splash = new TeeSplash()
+			Splash.addSplashLogo('/imgs/logo.png')
+			Splash.Splash()
+		</script>
+
 		<!-- content -->	
 	</body>
 </html>

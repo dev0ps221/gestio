@@ -253,6 +253,13 @@ const shop = new TeeShop(
 
 
 
+                    shop.sockets.registerSocketListener(
+                        [
+                            'add_article',({nom,prix,illu},socket)=>{
+                                
+                            }
+                        ]
+                    )
 
 
 
