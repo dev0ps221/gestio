@@ -10,5 +10,5 @@ function uploadIllu(illu,cb){
     if(cb)cb(illupath)
 }
 module.exports = {
-    uploadIlluArticle
+    uploadIllu
 }
