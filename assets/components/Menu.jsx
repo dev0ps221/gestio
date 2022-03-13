@@ -5,7 +5,8 @@ class Menu extends React.Component{
     }
 
     renderArticle(article,key){
-        return <Article article={article} key={key}/>
+        const {nom,id,prix,illu,categorieid} = article
+        return <Article key={key} prix={prix} illu={illu} catid={categorieid} nom={nom} id={id}/>
     }
 
     render(){

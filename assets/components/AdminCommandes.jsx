@@ -19,12 +19,21 @@ class AdminCommandes extends React.Component{
         </li>
     }
 
+    renderNewCommande(){
+        return <NewCommande>
+            <h1>
+                Ajouter Une Commande
+            </h1>
+        </NewCommande>
+    }
+
     render(){
 
         return <React.Fragment>
             <h1>
                 Commandes
             </h1>
+            {this.renderNewCommande()}
             {this.renderCommandes()}
         </React.Fragment>
 

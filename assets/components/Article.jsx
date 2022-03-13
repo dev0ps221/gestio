@@ -1,15 +1,20 @@
 class Article extends React.Component{
-    constructor (props){
+    constructor(props){
         super(props)
-        this.state = props.article
+        this.state = {...props}
     }
-
     render(){
-        return <li className="article-menu">
-            article
+        return <li className="article-menu" key={this.state.key}>
+            {this.state.nom}                    
             <ul className='infos-article-menu'>
                 <li>
-                    {this.state.content}                    
+                   <img src={this.state.illu}/>                    
+                </li>
+                <li>
+                   {this.state.nom}                    
+                </li>
+                <li>
+                   {this.state.prix} FCFA                    
                 </li>
             </ul>
         </li>

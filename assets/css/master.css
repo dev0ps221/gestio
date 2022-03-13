@@ -1,0 +1,28 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+form .champs{
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+}
+form .champs > *{
+    width: 100%;
+    padding:5%;
+}
+button{
+    margin: 0;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding:5%;
+    border:none;
+    border-radius: 0.4em;
+    font-weight: bolder;
+}
+.champs > button{
+    color:#b7703a;
+    background: #542504;
+}

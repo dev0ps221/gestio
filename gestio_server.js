@@ -247,9 +247,15 @@ const shop = new TeeShop(
                                 illu,(illupath)=>{
                                     console.log(illupath,' is illupath')
                                     shop._new_article_categorie(
-                                        catid,nom,prix,illu,(res)=>{
+                                        catid,nom,prix,illupath,(res)=>{
                                             console.log('resultats ajout article')
                                             console.log(res)
+
+                                            shop.setData(
+                                                ()=>{
+                                                    getCategories(socket)
+                                                }
+                                            )
                                         }
                                     )
                                 }
@@ -265,9 +271,15 @@ const shop = new TeeShop(
                             uploadIllu(
                                 illu,(illupath)=>{
                                     shop._new_categorie(
-                                        nom,illu,(res)=>{
-                                            console.log('resultats ajout article')
+                                        nom,illupath,(res)=>{
+                                            console.log('resultats ajout categorie')
                                             console.log(res)
+
+                                            shop.setData(
+                                                ()=>{
+                                                    getCategories(socket)
+                                                }
+                                            )
                                         }
                                     )
                                 }

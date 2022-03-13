@@ -28,22 +28,26 @@ class Admin extends React.Component{
     listenShop(){
         shop.whenReady(
             ()=>{
-                
+
                 if(document.body.querySelector('.TeeSplash')){
                     Splash.UnSplash()
                 }
 
                 this.state.menus = shop.data.categories
                 this.state.commandes = shop.data.commandes
-                const state = this.cleanState()
+                let state = this.cleanState()
                 shop.sio.get(
                     'categoriesRes',(cats)=>{
-                        console.log('categories ...',cats)
+                        this.state.menus = cats
+                        state = this.cleanState()
+                        this.setState(state)
                     }
                 )
                 shop.sio.get(
-                    'commandesRes',(cats)=>{
-                        console.log('commandes ...',cats)
+                    'commandesRes',(coms)=>{
+                        this.state.commandes = coms   
+                        state = this.cleanState()
+                        this.setState(state)
                     }
                 )
                 this.setState(state) 

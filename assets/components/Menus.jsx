@@ -1,9 +1,11 @@
 class Menus extends React.Component{
     constructor(props){
         super(props)
+        const {menus} = props 
         this.state = {
-            menus:props.menus
+            menus
         }
+        window.shopMenus = this
     }  
     
 
@@ -12,6 +14,8 @@ class Menus extends React.Component{
     }
 
     render(){
+
+        console.log('these are our menus ',this.state.menus)
         return <React.Fragment>
             {this.state.menus.map(
                 this.renderMenu

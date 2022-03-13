@@ -6,6 +6,7 @@
 			Gestio App
 		</title>
 		<meta name='viewport' content="width=device-width;initial-scale=1" >
+		<link rel="stylesheet" href="/css/master.css">
 	</head>
 	<body>
 		<header  style="display: flex;width:100%;justify-content: center;">
@@ -24,6 +25,11 @@
 				</tr>
 			</table>
 		</header>
+		<style>
+			body{
+				background: linear-gradient(to right,rgba(17, 17, 9, 0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.5));
+			}
+		</style>
 		<script crossorigin src="/js/react.development.js"></script>
 		<script crossorigin src="/js/react-dom.development.js"></script>
 		<script src="/js/babel.min.js"></script>
@@ -33,6 +39,7 @@
 		<script src="/teeshop"></script>
 		<script src="/js/cman.js"></script>
 		<script src="/js/tsplash.js"></script>
+		<script type='text/babel' src="/comp/FormFields.jsx"></script>
 		<script>
 			function iLI(){
 				return Cman.cooks().hasOwnProperty('cleeId')
