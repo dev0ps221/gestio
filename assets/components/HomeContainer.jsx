@@ -9,6 +9,7 @@ class HomeContainer extends React.Component{
     } 
     switchView(e){
         this.state.view = e.target.id.replace('v_','')
+        this.state.menus = this.state.menus
         this.setState(this.state)
     }
     render(){

@@ -1,3 +1,4 @@
+let firstturn = true
 class ViewSwitcher extends React.Component{
     constructor(props){
         super(props)
@@ -7,12 +8,23 @@ class ViewSwitcher extends React.Component{
         }
     }
  
+
+    doSwitch(e){
+        
+        document.querySelector('#home .switcher-tabs .actual').classList.remove('actual')
+        e.target.parentNode.classList.add('actual')
+        this.state.onSwitch(e)
+        
+    }
+
     renderTab(tab,key){
-        return <li id={`v_${tab}`} onClick={(e)=>this.state.onSwitch(e)} key={key}>
+        const rendered = <li id={`v_${tab}`} className={firstturn && tab=='menus'?'actual':''} onClick={(e)=>this.doSwitch(e)} key={key}>
             <h1>
                 {tab}
             </h1>
         </li>
+        firstturn = false
+        return rendered
     }
 
     render(){

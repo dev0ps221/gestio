@@ -35,7 +35,7 @@ header{
     justify-content: center;
     display: flex;
     width: 90%;
-    height:10vh;
+    height:5vh;
     padding:5%;
 }
 header #logobox{
@@ -65,5 +65,6 @@ header #search input,header #search button{
         position: sticky;
         top:0;
         background: url('/imgs/backlogo_2.png');
+        height: 10vh;
     }
 }

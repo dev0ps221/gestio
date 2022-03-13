@@ -12,7 +12,6 @@ class ViewSwitch extends React.Component{
     }
 
     render(){
-        console.log(this.props.children)
         return <React.Fragment>
             <ul id={this.props.children.key}>
                 {this.props.children}
