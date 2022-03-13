@@ -11,7 +11,9 @@ class Menu extends React.Component{
 
     render(){
         return <li className="menu">
-            MENU
+            <h1>
+                {this.state.nom?this.state.nom.toUpperCase():''}
+            </h1>
             <ul className='articles-menu'>
                 {
                     (this.state.articles.length) ? this.state.articles.map(

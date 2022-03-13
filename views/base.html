@@ -5,29 +5,22 @@
 		<title>
 			Gestio App
 		</title>
-		<meta name='viewport' content="width=device-width;initial-scale=1" >
+		<meta name='viewport' content="width=device-width,initial-scale=1" >
 		<link rel="stylesheet" href="/css/master.css">
 	</head>
 	<body>
-		<header  style="display: flex;width:100%;justify-content: center;">
-			<table>
-				<tr>
-					<td>
-						<div>
-							<img src="/imgs/gestio_mini.png" alt="gestio">
-						</div>
-					</td>
-					<td>
-						<div>
-							<input type="search"><button>chercher</button>
-						</div>
-					</td>
-				</tr>
-			</table>
+		<header>	
+			<div id='logobox'>
+				<img id='logo' src="/imgs/gestio_mini.png" alt="gestio">
+			</div>
+			<div id='search'>
+				<input type="search"><button>chercher</button>
+			</div>
 		</header>
 		<style>
 			body{
-				background: linear-gradient(to right,rgba(17, 17, 9, 0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.5));
+				/* background-color: linear-gradient(to right,rgba(17, 17, 9, 0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.7),rgba(50,50,30,0.9),rgba(50,50,30,0.5)); */
+				background-blend-mode: color-burn;
 			}
 		</style>
 		<script crossorigin src="/js/react.development.js"></script>

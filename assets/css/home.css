@@ -1,0 +1,78 @@
+#home{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+#home ul{
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+#home ul li{
+    list-style-type:none ;
+    margin: 0;
+}
+#home{
+    width:90%;
+    padding: 5%;
+}
+#home ul{
+    padding: 0;
+}
+#home #menus{
+    display: flex;
+    margin:0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.25);
+}
+#home #menus .menu {
+    display: flex;
+    flex-direction: column;
+    width:90%;
+    padding: 5%;
+    padding-bottom: 4em;
+    margin-bottom:5%;
+    border-top: 0.1em solid ivory;
+}
+
+#home #menus .menu ul{
+    display: flex;
+    padding: 2.5%;
+    width:95%;
+}
+.article-menu{
+    margin-bottom:5%;
+    display: flex;
+    max-height: 10vh;
+    flex-direction: column;
+}
+#home #menus .menu .article-menu .infos-article-menu{
+    width:100%;
+    height:100%;
+    flex-direction: row;
+}
+#home #menus .menu .article-menu .infos-article-menu li{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+.article-menu .illu{
+    width:20%;
+}
+.article-menu img{
+    width:100%;
+    height:100%;
+}
+#home .switcher-tabs{
+    margin-left: -5%;
+    padding: 5%;
+    position: sticky;
+    top:0;
+    height:10vh;
+    background: url('/imgs/backlogo_2.png');
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

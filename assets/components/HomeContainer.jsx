@@ -2,6 +2,7 @@ class HomeContainer extends React.Component{
     constructor(props){
         super(props)
         this.state.menus = props.menus
+     
     }
     state = {
         view:"menus"
@@ -11,16 +12,15 @@ class HomeContainer extends React.Component{
         this.setState(this.state)
     }
     render(){
-        console.log(this.state.view)
         return <React.Fragment>
             <ViewSwitcher tabs={['menus','commandes']} onSwitch={(e)=>this.switchView(e)} />
             <ViewSwitch view={this.state.view}>
                 {
                     this.state.view == 'menus'  
                         ?   
-                            <Menus menus={this.state.menus} key='menus'/>
+                            <Menus id='menus' menus={this.state.menus} key='menus'/>
                         :
-                            <CommandesClient key='commandes'/>
+                            <CommandesClient id='commandes' key='commandes'/>
                 }
             </ViewSwitch>
         </React.Fragment>

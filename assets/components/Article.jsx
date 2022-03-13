@@ -5,13 +5,12 @@ class Article extends React.Component{
     }
     render(){
         return <li className="article-menu" key={this.state.key}>
-            {this.state.nom}                    
+            <h1>
+                {this.state.nom}                    
+            </h1>
             <ul className='infos-article-menu'>
-                <li>
+                <li className="illu">
                    <img src={this.state.illu}/>                    
-                </li>
-                <li>
-                   {this.state.nom}                    
                 </li>
                 <li>
                    {this.state.prix} FCFA                    

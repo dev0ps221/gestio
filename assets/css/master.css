@@ -1,8 +1,12 @@
 body{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
     margin: 0;
     padding: 0;
+    background: url('/imgs/backlogo_2.png');
+    color:silver;
 }
 form .champs{
     display: flex;
@@ -25,4 +29,41 @@ button{
 .champs > button{
     color:#b7703a;
     background: #542504;
+    cursor: pointer;
+}
+header{
+    justify-content: center;
+    display: flex;
+    width: 90%;
+    height:10vh;
+    padding:5%;
+}
+header #logobox{
+    display: flex;
+    height:100%;
+}
+header #logobox #logo{
+    height:100%;
+}
+header #search{
+    display: flex;
+    flex-direction: row;
+}
+header #search input,header #search button{
+    padding: 0;
+    border:0;
+    margin-top:7.25%;
+    height:60%;
+}
+@media screen and (max-width:997px) {
+    body{
+        font-size: 20px;
+        font-weight: bolder;
+        font-variant: small-caps;
+    }
+    header{
+        position: sticky;
+        top:0;
+        background: url('/imgs/backlogo_2.png');
+    }
 }

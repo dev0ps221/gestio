@@ -1,0 +1,62 @@
+#admin{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+#admin ul{
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+#admin ul li{
+    list-style-type:none ;
+    margin: 0;
+}
+#admin #adminfeed{
+    width:90%;
+    padding: 5%;
+}
+#admin #adminfeed ul{
+    padding: 0;
+}
+#admin #adminfeed #adminmenus{
+    display: flex;
+    margin:0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.25);
+
+}
+#admin #adminfeed #adminmenus .menu {
+    display: flex;
+    flex-direction: column;
+    width:90%;
+    padding: 5%;
+}
+
+#admin #adminfeed #adminmenus .menu ul{
+    display: flex;
+    flex-direction: row;
+    max-height: 20vh;
+    overflow:hidden;
+    overflow-x: scroll;
+    padding: 2.5%;
+    width:95%;
+}
+.article-menu{
+    margin-right: 5%;
+    display: flex;
+    min-width: 30vw;
+    height: 100%;
+    flex-direction: column;
+}
+#admin #adminfeed #adminmenus .menu .article-menu .infos-article-menu{
+    width:100%;
+    height:100%;
+    flex-direction: column;
+}
+.article-menu img{
+    width:100%;
+    height:100%;
+}

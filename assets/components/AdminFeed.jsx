@@ -8,7 +8,7 @@ class AdminFeed extends React.Component{
     }
 
     renderFeedBox(box,key){
-        let props = {key,className:'feed-box'}        
+        let props = {key,id:box.props.id,className:'feed-box'}        
         
         return React.createElement(
            'li',props,box 
