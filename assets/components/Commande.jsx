@@ -29,14 +29,21 @@ class Commande extends React.Component{
 
 
     renderArticle(article,key){
-        return <li key={key} className="article-panier article">
-            {article.nom}
+        return <li key={key} className="article-commande article">
+            <ul>
+                {article.nom}
+            </ul>
             <ul className="infos-article">
                 <li>
                     {article.quantite}
                 </li>
                 <li>
-                    {article.prix}
+                    {article.prix} FCFA
+                </li>
+            </ul>
+            <ul className="cout-article">
+                <li>
+                    {article.quantite * article.prix}
                 </li>
             </ul>
         </li>
@@ -44,7 +51,8 @@ class Commande extends React.Component{
 
 
     renderArticles(){
-        let rendered = ""
+        let rendered = ''
+        
         if(shop && shop.cart && Array.isArray(shop.cart.articles)){
             rendered = shop.cart.articles.map(
                 (a,k)=>this.renderArticle(a,k)
@@ -57,7 +65,25 @@ class Commande extends React.Component{
     render(){
         return <React.Fragment>
             <h1>MA COMMANDE</h1>
-            <ul className="articles" id='articles-panier'>
+            <ul className="articles" id='articles-commande'>
+                <li className="article-commande article" key={'0-'}>
+                    <ul>
+                        nom
+                    </ul>
+                    <ul className="infos-article">
+                        <li>
+                            unites
+                        </li>
+                        <li>
+                            prix
+                        </li>
+                    </ul>
+                    <ul className="cout-article">
+                        <li>
+                            total
+                        </li>
+                    </ul>
+                </li>
                 {this.renderArticles()}
             </ul>
         </React.Fragment>

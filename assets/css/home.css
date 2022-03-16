@@ -97,6 +97,29 @@
     min-width: 35vw;
     background:rgba(0, 0, 0, 0.4);
 }
+#home #commandes #articles-commande{
+    display: flex;
+    flex-direction: column;
+}
+#home #commandes #articles-commande .article-commande{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 96%;
+    padding: 2%;
+    background: rgba(0, 0, 0, 0.5);
+    border-top:  0.05em solid rgba(200, 200, 200, 0.5);
+}
+#home #commandes #articles-commande .article-commande:first-of-type{
+    background: rgba(200, 0, 0, 0.5);
+    color: white;
+}
+#home #commandes #articles-commande .article-commande > ul{
+    display: flex;
+    min-width: 35%;
+    flex-wrap: wrap;
+    text-align: center;
+}
 @media screen and (max-width:997px){
 
     #home #menus .menu {
