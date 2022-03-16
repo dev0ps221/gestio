@@ -3,6 +3,13 @@ class Article extends React.Component{
         super(props)
         this.state = {...props}
     }
+    addToCart(e){
+        e.target.src='/imgs/panier_green.png'
+        shop.addCartProd(this.state.id,this.state.nom,1,this.state.prix)
+        if(window.cart)window.cart.refreshCart()
+        e.preventDefault()
+        e.target.src='/imgs/panier.png'
+    }
     render(){
         return <li className="article-menu" key={this.state.key}>
             <h1>
@@ -14,6 +21,11 @@ class Article extends React.Component{
                 </li>
                 <li>
                    {this.state.prix} FCFA                    
+                </li>
+            </ul>
+            <ul className="actions-article-menu">
+                <li className="action-article">
+                    <img src='/imgs/panier_white.png' onClick={e=>this.addToCart(e)} onMouseOver={e=>e.target.src='/imgs/panier_greegreen.png'} onMouseOut={e=>e.target.src='/imgs/panier_white.png'}/>
                 </li>
             </ul>
         </li>

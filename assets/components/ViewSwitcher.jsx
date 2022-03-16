@@ -10,15 +10,14 @@ class ViewSwitcher extends React.Component{
  
 
     doSwitch(e){
-        
-        document.querySelector('#home .switcher-tabs .actual').classList.remove('actual')
+        document.querySelector(('v_commandesv_menus'.match(e.target.id))?'#home .switcher-tabs > .actual':'#home .switcher-tabs * .actual').classList.remove('actual')
         e.target.parentNode.classList.add('actual')
         this.state.onSwitch(e)
         
     }
 
     renderTab(tab,key){
-        const rendered = <li id={`v_${tab}`} className={firstturn && tab=='menus'?'actual':''} onClick={(e)=>this.doSwitch(e)} key={key}>
+        const rendered = <li id={`v_${tab}`} className={firstturn && tab=='menus'||tab=='panier'?'actual':''} onClick={(e)=>this.doSwitch(e)} key={key}>
             <h1>
                 {tab}
             </h1>
