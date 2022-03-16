@@ -27,6 +27,18 @@ class Article extends React.Component{
                 <li className="action-article">
                     <img src='/imgs/panier_white.png' onClick={e=>this.addToCart(e)} onMouseOver={e=>e.target.src='/imgs/panier_greegreen.png'} onMouseOut={e=>e.target.src='/imgs/panier_white.png'}/>
                 </li>
+                {shop.hasInCart(this.state.id)
+                    ?
+                        <React.Fragment>
+                            <li className="action-article">
+                                <img src='/imgs/add.png' onClick={e=>this.shop.incrementCartUnit(this.state.id)}/>
+                            </li>
+                            <li className="action-article">
+                                <img src='/imgs/remove.png' onClick={e=>this.shop.decrementCartUnit(this.state.id)}/>
+                            </li>
+                        </React.Fragment>
+                    :''
+                }
             </ul>
         </li>
     }

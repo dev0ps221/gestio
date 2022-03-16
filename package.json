@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tek-tech/teeshop": "^0.1.0-beta-2.0.3-r3.0.2-r1",
+    "@tek-tech/deebee": "^1.0.4-beta",
+    "@tek-tech/ears": "^0.0.3-beta-1",
+    "@tek-tech/teeshop": "^1.0.0-beta",
     "@tek-tech/teesio": "^0.0.1-cli",
     "@tek-tech/teesio-socket": "^0.0.1-cli",
     "express": "^4.17.3",
