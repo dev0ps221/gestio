@@ -11,7 +11,7 @@
   "dependencies": {
     "@tek-tech/deebee": "^1.0.4-beta",
     "@tek-tech/ears": "^0.0.3-beta-1",
-    "@tek-tech/teeshop": "^1.0.0-beta",
+    "@tek-tech/teeshop": "^1.0.0-beta-1",
     "@tek-tech/teesio": "^0.0.1-cli",
     "@tek-tech/teesio-socket": "^0.0.1-cli",
     "express": "^4.17.3",

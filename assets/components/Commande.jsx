@@ -27,6 +27,13 @@ class Commande extends React.Component{
 
     }
 
+    increArticle(){
+
+    }
+
+    decreArticle(){
+        
+    }
 
     renderArticle(article,key){
         return <li key={key} className="article-commande article">
@@ -35,7 +42,7 @@ class Commande extends React.Component{
             </ul>
             <ul className="infos-article">
                 <li>
-                    {article.quantite}
+                    <InputField type='number' value={article.quantite} min={0} />
                 </li>
                 <li>
                     {article.prix} FCFA
@@ -43,7 +50,7 @@ class Commande extends React.Component{
             </ul>
             <ul className="cout-article">
                 <li>
-                    {article.quantite * article.prix}
+                    {article.quantite * article.prix} FCFA
                 </li>
             </ul>
         </li>

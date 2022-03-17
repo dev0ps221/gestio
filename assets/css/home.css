@@ -59,10 +59,14 @@
     flex-direction: row;
 }
 #home #menus .menu .article-menu .actions-article-menu .action-article{
-    width:5%;
+    width:3.5%;
+    margin-right: 2.5%;
     background: rgba(200, 200, 200, 0.3);
     cursor: pointer;
     border-radius:6em;
+}
+#home #menus .menu .article-menu .actions-article-menu .action-article:hover,#home #menus .menu .article-menu .actions-article-menu .action-article:active{
+    background:silver;
 }
 #home #menus .menu .article-menu .actions-article-menu .action-article img{
     width:100%;
@@ -135,6 +139,6 @@
         padding: 5%;
     }
     #home #menus .menu .article-menu .actions-article-menu .action-article{
-        width:10%;
+        width:7.5%;
     }
 }
