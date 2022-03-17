@@ -18,21 +18,13 @@ class Commande extends React.Component{
             }
         }
         shop.isReady() 
-        ?
-            action()
-        :   
-            shop.whenReady(
-                ()=>action()
-            )
+            ?
+                action()
+            :   
+                shop.whenReady(
+            ()=>action()
+        )
 
-    }
-
-    increArticle(){
-
-    }
-
-    decreArticle(){
-        
     }
 
     renderArticle(article,key){
@@ -42,7 +34,7 @@ class Commande extends React.Component{
             </ul>
             <ul className="infos-article">
                 <li>
-                    <InputField type='number' value={article.quantite} min={0} />
+                    <InputField type='number' value={article.quantite} onChange={e=>this.changeQuantity(article.quantite,e.target.value,article.id)} min={0} />
                 </li>
                 <li>
                     {article.prix} FCFA
@@ -62,7 +54,7 @@ class Commande extends React.Component{
         
         if(shop && shop.cart && Array.isArray(shop.cart.articles)){
             rendered = shop.cart.articles.map(
-                (a,k)=>this.renderArticle(a,k)
+                (a,k)=><ArticleCommande article={a} key={k} parent={this}/>
             )
         }
         return rendered 
