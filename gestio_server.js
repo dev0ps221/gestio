@@ -289,6 +289,37 @@ const shop = new TeeShop(
                 )
 
 
+                shop.sockets.registerSocketListener(
+                    [
+                        'add_commande',({userid,articles},socket)=>{
+                            console.log('ajouter la commande')
+                            console.log('les infos sont userid:',userid,'\narticles:',aricles)
+                            if(userid)shop.database.addCom(
+                                {userid},com=>{
+                                    if(com){
+                                        let errs = []
+                                        articles.forEach(
+                                            ({id,quantite},idx)=>{
+                                                com.addArticle(
+                                                    id,quantite,(e,r)=>{
+                                                        if(e)errs.push(e)
+                                                        if(idx+1==articles.length){
+                                                            if(errs.length)(console.log(errs.join("\n-")))
+                                                            socket.post(
+                                                                'add_commande_res',!errs.length
+                                                            )
+                                                        }                                                       
+                                                    }
+                                                )
+
+                                            }
+                                        )
+                                    }
+                                }
+                            )
+                        }
+                    ]
+                )
 
 
 

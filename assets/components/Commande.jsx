@@ -60,7 +60,7 @@ class Commande extends React.Component{
         return rendered 
     }
 
-
+    
     render(){
         return <React.Fragment>
             <h1>MA COMMANDE</h1>
@@ -84,6 +84,14 @@ class Commande extends React.Component{
                     </ul>
                 </li>
                 {this.renderArticles()}
+            </ul>
+            <h1>VALIDER LA COMMANDE</h1>
+            <ul className="valider" id='valider-commande'>
+                <li className="client-commande infos" key={'0-'}>    
+                    <button>
+                        VALIDER !
+                    </button>
+                </li>
             </ul>
         </React.Fragment>
     }
